@@ -7,6 +7,12 @@ The prepare_bootable_sd.sh takes as input an SD device and 2 directories which c
 - if needed extract the archive rootfs.* (where * has to be the archive-format specified by a flag, default is tar) related to the ROOT partition and then load the contents in the ROOT partition of the device
 
 # Future Updates
-* Extraction of the sd image from a single file/archive using dd to load it on the device
 * Flags to allow other partition formats for the device (currently only FAT32 for boot partition and ext4 for rootfs partition)
 * Flags to allow different partition sizes and also number of partitions
+
+There could be also the extraction of the sd image from a single file/archive using dd to load it on the device, yet not that useful since if a compressed image is available it can be loaded onto an sd card with a single command. 
+
+For example if the image is compressed with gunzip a command like the following can be used to load the image to the device:
+```
+gunzip -c sd_image.img.gz | sudo dd of=/dev/sdX bs=4M status=progress && sync
+```
